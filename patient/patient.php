@@ -26,7 +26,9 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Patient Dashboard</title>
+		<title>คลินิกทันตกรรมทับปุด</title>
+		<link rel="icon" href="assets/img/F1.png" type="image/png">
+
 		<!-- Bootstrap -->
 		<!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
 		<link href="assets/css/material.css" rel="stylesheet">
@@ -54,15 +56,15 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="patient.php"><img alt="Brand" src="assets/img/logo.png" height="40px"></a>
+					<a class="navbar-brand" href="patient.php"><img alt="Brand" src="assets/img/logo1.png" height="30px"></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<ul class="nav navbar-nav">
-							<li><a href="patient.php">Home</a></li>
+							<li><a href="patient.php">หน้าหลัก</a></li>
 							<!-- <li><a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>" >Profile</a></li> -->
-							<li><a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">Appointment</a></li>
+							<li><a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">รายการจองของคุณ</a></li>
 						</ul>
 					</ul>
 					
@@ -71,29 +73,36 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?><b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="fa fa-fw fa-user"></i> Profile</a>
+									<a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="fa fa-fw fa-user"></i>ประวัติส่วนตัว</a>
 								</li>
 								<li>
-									<a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="glyphicon glyphicon-file"></i> Appointment</a>
+									<a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="glyphicon glyphicon-file"></i>รายการจองของคุณ</a>
 								</li>
 								<li class="divider"></li>
 								<li>
-									<a href="patientlogout.php?logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+									<a href="patientlogout.php?logout"><i class="fa fa-fw fa-power-off"></i> ออกจากระบบ</a>
 								</li>
 							</ul>
 						</li>
 					</ul>
 				</div>
 			</div>
-		</nav>
+		</nav> 
 		<!-- navigation -->
 		
 		<!-- 1st section start -->
-		<section id="promo-1" class="content-block promo-1 min-height-600px bg-offwhite">
+		<section id="promo-1" class="content-block promo-1 min-height-200px bg-offwhite">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-md-8">
-						
+					<div class="col-xl-12">
+						<h2>สวัสดีคุณ <?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?><br>ตารางการจองคิวสำหรับวันนี้</h2>
+						<h3 style="color: red; font-size: 16px; font-weight: bold;">กรุณาเลือกวันที่ ที่คุณต้องการจอง!</h3>
+					</div>
+				</div>
+				<div class="row">
+					
+					<div class="col-xl-12 col-md-9">
+					
 						
 						<?php if ($userRow['patientMaritialStatus']=="") {
 						// <!-- / notification start -->
@@ -101,50 +110,72 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 							echo "<div class='col-lg-12'>";
 								echo "<div class='alert alert-danger alert-dismissable'>";
 									echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
-									echo " <i class='fa fa-info-circle'></i>  <strong>Please complete your profile.</strong>" ;
+									echo " <i class='fa fa-info-circle'></i>  <strong>กรุณาเพิ่มข้อมูลเพิ่มเติมของคุณ</strong>" ;
 								echo "  </div>";
 							echo "</div>";
 							// <!-- notification end -->
 							
-							} else {
+							} else { 
 							}
 							?>
 							<!-- notification end -->
-							<h2>Hai <?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?>. Make appointment today!</h2>
+							
 							<div class="input-group" style="margin-bottom:10px;">
 								<div class="input-group-addon">
 									<i class="fa fa-calendar">
 									</i>
 								</div>
-								<input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d")?>" onchange="showUser(this.value)"/>
+								<input class="form-control" id="date" name="date" type="date" min="<?=date("Y-m-d"); ?>" value="<?php echo date("Y-m-d")?>" onchange="showUser(this.value)"/>
 							</div>
 						</div>
 						<!-- date textbox end -->
 						<!-- script start -->
 						<script>
-						function showUser(str) {
-						
-						if (str == "") {
-						document.getElementById("txtHint").innerHTML = "No data to be shown";
-						return;
-						} else {
-						if (window.XMLHttpRequest) {
-						// code for IE7+, Firefox, Chrome, Opera, Safari
-						xmlhttp = new XMLHttpRequest();
-						} else {
-						// code for IE6, IE5
-						xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-						}
-						xmlhttp.onreadystatechange = function() {
-						if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-						document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-						}
-						};
-						xmlhttp.open("GET","getschedule.php?q="+str,true);
-						console.log(str);
-						xmlhttp.send();
-						}
-						}
+							
+							$data = document.getElementById("date").value  
+							console.log($data);
+
+							if (window.XMLHttpRequest) {
+							// code for IE7+, Firefox, Chrome, Opera, Safari
+								xmlhttp = new XMLHttpRequest();
+							} else {
+							// code for IE6, IE5
+								xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+							}
+							xmlhttp.onreadystatechange = function() {
+								if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+									document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+								}
+							};
+							xmlhttp.open("GET","getschedule.php?q="+$data,true);
+							console.log($data);
+							xmlhttp.send();
+							
+							
+							function showUser(str) {
+								console.log(str);
+							
+								if (str == "") {
+									document.getElementById("txtHint").innerHTML = "No data to be shown";
+									return;
+								} else {
+									if (window.XMLHttpRequest) {
+									// code for IE7+, Firefox, Chrome, Opera, Safari
+										xmlhttp = new XMLHttpRequest();
+									} else {
+									// code for IE6, IE5
+										xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+									}
+									xmlhttp.onreadystatechange = function() {
+										if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+											document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+										}
+									};
+									xmlhttp.open("GET","getschedule.php?q="+str,true);
+									console.log(str);
+									xmlhttp.send();
+								}
+							}
 						</script>
 						
 						<!-- script start end -->
@@ -165,81 +196,151 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 				<!-- /.row -->
 			</div>
 		</section>
-		<!-- first section end -->
-		<!-- forth sections start -->
+		<!-- first section end --> 
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<style>
+				#myTable {
+					width: 90%;
+					margin: 0 auto;
+					border-collapse: collapse;
+					background-color: #f2f2f2;
+					font-size: 20px;
+				}
+
+				#myTable th, #myTable td {
+					border: 1px solid #ddd;
+					padding: 8px;
+					text-align: center;
+				}
+
+				#myTable th {
+					background-color: #3366FF;
+					color: white;
+				}
+
+				#myTable tr:nth-child(even) {
+					background-color: #f2f2f2;
+				}
+			</style>
+		</head>
+		<body>
+		<div class="container">
+						<div class="underlined-title">
+							<h1>ทันตแพทย์</h1>
+							<hr>
+							<h2>ความเชี่ยวชาญของทันตแพทย์</h2>
+						</div>
+			
+			<table id="myTable">
+				<?php
+					include_once '../assets/conn/dbconnect.php';
+
+					$sql = "SELECT * FROM doctordata";
+					$result = mysqli_query($con, $sql);
+
+					if (mysqli_num_rows($result) > 0) {
+						echo "<tr>";
+						echo "<th>ความเชี่ยวชาญด้านทันตกรรม</th>";
+						echo "<th>ชื่อ</th>";
+						echo "<th>นามสกุล</th>";
+						echo "<th>เบอร์โทรศัพท์</th>";
+						echo "</tr>";
+
+						while ($row = mysqli_fetch_assoc($result)) {
+							echo "<tr>";
+							echo "<td>" . $row['doctor_service'] . "</td>";
+							echo "<td>" . $row['doctor_Fname'] . "</td>";
+							echo "<td>" . $row['doctor_Lname'] . "</td>";
+							echo "<td>" . $row['doctor_phone'] . "</td>";
+							echo "</tr>";
+						}
+
+					} else {
+						echo "ไม่มีข้อมูลแพทย์";
+					}
+
+					mysqli_close($con);
+				?>
+			</table>
+		</body>
+		</html>
+		 <!-- forth sections start -->
+		 </section>
+        <!-- forth sections start -->
 		<section id="content-1-9" class="content-1-9 content-block">
 			<div class="container">
 				<div class="underlined-title">
-					<h1>Get in Touch</h1>
+					<h1>การรักษาของเรา</h1>
 					<hr>
-					<h2>Feel free to drop us a line to contact us</h2>
+					<h2>คลินิกทันตกรรมทับปุดเปิดให้บริการเกี่ยวกับ</h2>
 				</div>
 				<div class="row">
 					<div class="col-md-4 col-sm-12 col-xs-12 pad25">
 						<div class="col-xs-2">
-							<span class="fa fa-pencil"></span>
+                        <img src="assets/img/F2.png" alt="รูปภาพทันตกรรม" width="40" height="40">
 						</div>
 						<div class="col-xs-10">
-							<h4>Branding</h4>
-							<p>Retro chillwave YOLO four loko photo booth. Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
+							<h4>ทันตกรรมทั่วไป</h4>
+							<p>บริการเกี่ยวกับ ขูดหินปูน อุดฟัน ถอนฟัน การรักษารากฟัน ผ่าฟันคุด </p>
 						</div>
 					</div>
+					
 					<div class="col-md-4 col-sm-12 col-xs-12 pad25">
 						<div class="col-xs-2">
-							<span class="fa fa-code"></span>
+                        <img src="assets/img/F5.png" alt="รูปภาพทันตกรรม" width="40" height="40">
 						</div>
 						<div class="col-xs-10">
-							<h4>Web Design</h4>
-							<p>Retro chillwave YOLO four loko photo booth. Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
+							<h4>ทันตกรรมความงาม</h4>
+							<p>บริการเกี่ยวกับ จัดฟัน  ฟอกสีฟัน ครอบฟัน สะพานฟัน ฟันปลอม</p>
 						</div>
 					</div>
-					<div class="col-md-4 col-sm-12 col-xs-12 pad25">
-						<div class="col-xs-2">
-							<span class="fa fa-comments-o"></span>
-						</div>
-						<div class="col-xs-10">
-							<h4>Social Marketing</h4>
-							<p>Retro chillwave YOLO four loko photo booth. Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-12 col-xs-12 pad25">
-						<div class="col-xs-2">
-							<span class="fa fa-search"></span>
-						</div>
-						<div class="col-xs-10">
-							<h4>SEO</h4>
-							<p>Retro chillwave YOLO four loko photo booth. Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-12 col-xs-12 pad25">
-						<div class="col-xs-2">
-							<span class="fa fa-mobile"></span>
-						</div>
-						<div class="col-xs-10">
-							<h4>Mobile Apps</h4>
-							<p>Retro chillwave YOLO four loko photo booth. Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-12 col-xs-12 pad25">
-						<div class="col-xs-2">
-							<span class="fa fa-bookmark"></span>
-						</div>
-						<div class="col-xs-10">
-							<h4>Corporate Literture</h4>
-							<p>Retro chillwave YOLO four loko photo booth. Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
-						</div>
-					</div>
+					
+                    <div class="col-md-4 col-sm-12 col-xs-12 pad25">
+                        <div class="col-xs-2">
+                            <img src="assets/img/F6.png" alt="รูปภาพทันตกรรม" width="40" height="40">
+                        </div>
+                        <div class="col-xs-10">
+                            <h4>ปรึกษาทันตกรรม</h4>
+                            <p>รับบริการปรึกษาเกี่ยวกับสุขภาพฟัน ปรึกษาฟรี</p>
+                        </div>
+                    </div>
+                 
 				</div>
 				<!-- /.row -->
-			</div>
+                
+                </div>
+            
 		</section>
+        <section id="content-1-9" class="content-1-9 content-block" style="background-color: #E9F5F5">
+    <div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="underlined-title">
+            <h1>เกี่ยวกับเรา</h1>
+            <hr>
+            <h2>คลินิกทันตกรรมทับปุด</h2>
+        </div>
+        <iframe style="border:0; width: 90%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.8013280345754!2d98.63268307501293!3d8.518660991523683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3051059e47a70897%3A0xfdea44c74d815278!2z4LiE4Lil4Li04LiZ4Li04LiB4LiX4Lix4LiZ4LiV4LiB4Lij4Lij4Lih4LiX4Lix4Lia4Lib4Li44LiU!5e0!3m2!1sth!2sth!4v1698790513159!5m2!1sth!2sth"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <p></p>
+            <div>
+                <p><strong>ตำแหน่งร้าน:</strong> ตรงข้ามตลาดเทศบาลทับปุด 6/9 ม.1 ต.ทับปุด อ.ทับปุด จ.พังงา 82180</p>
+                <p><strong>เปิดให้บริการ:</strong>
+                <span>จันทร์-ศุกร์ 17.00-20.00 น.</span>
+                <span>เสาร์-อาทิตย์</span>
+                <span>09.00-17.00 น.</span>
+                </p>
+                <p><strong>เบอร์โทร:</strong> 0636061970</p>
+            </div>
+
+    </div>
+</section>
 		<!-- forth section end -->
 		
 		<!-- footer start -->
 		<div class="copyright-bar bg-black">
 			<div class="container">
-				<p class="pull-left small">© pgblocks - Pinegrow Blocks</p>
-				<p class="pull-right small">Made with <i class="fa fa-heart pomegranate"></i> on Planet Earth</p>
+				<p class="pull-left small">ขอบคุณที่ไว้ใจ คลินิคทันตกรรมทับปุด </p>
+				
 			</div>
 		</div>
 		<!-- footer end -->
@@ -254,7 +355,7 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 		<script src="assets/js/bootstrap.min.js"></script>
 		
 		<!-- date start -->
-		<script>
+		<!-- <script>
 		$(document).ready(function(){
 		var date_input=$('input[name="date"]'); //our date input has the name "date"
 		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -265,9 +366,8 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 		autoclose: true,
 		})
 		})
-		</script>
+		</script> -->
 		<!-- date end -->
-		
-		
+
 	</body>
 </html>

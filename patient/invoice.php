@@ -17,7 +17,8 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 <html>
     <head>
         <meta charset="utf-8">
-        <title>A simple, clean, and responsive HTML invoice template</title>
+        <title>ใบการจองทันตกรรมทับปุด</title>
+        <link rel="icon" href="assets/img/F1.png" type="image/png">
         
         <link rel="stylesheet" type="text/css" href="assets/css/invoice.css">
     </head>
@@ -29,17 +30,17 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                         <table>
                             <tr>
                                 <td class="title">
-                                    <img src="assets/img/logo.png" style="width:100%; max-width:300px;">
+                                    <img src="assets/img/logo1.png" style="width:100%; max-width:300px;">
                                 </td>
                                 
                                 <td>
-                                    Invoice #: <?php echo $userRow['appId'];?><br>
-                                    Created: <?php echo date("d-m-Y");?><br>
+                                Appointment ID: <?php echo $userRow['appId'];?><br>
+                                    ทำรายการวันที่: <?php echo date("d-m-Y");?><br>
                                 </td>
                             </tr>
                         </table>
                     </td>
-                </tr>
+                </tr> 
                 
                 <tr class="information">
                     <td colspan="2">
@@ -62,17 +63,17 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                 
                 <tr class="heading">
                     <td>
-                        Appointment Details
+                        รายละเอียดการจอง
                     </td>
                     
                     <td>
-                        #
+                        
                     </td>
                 </tr>
                 
                 <tr class="item">
                     <td>
-                        Appointment ID
+                        Appointment ID:
                     </td>
                     
                     <td>
@@ -80,19 +81,19 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                     </td>
                 </tr>
                 
-                <tr class="item">
+                <!-- <tr class="item">
                     <td>
-                        Schedule ID
-                    </td>
+                        Schedule ID(รหัสกำหนดการ):
+                    </td> -->
                     
-                    <td>
+                    <!-- <td>
                         <?php echo $userRow['scheduleId'];?>
                     </td>
-                </tr>
+                </tr> -->
 
                 <tr class="item">
                     <td>
-                        Appointment Day
+                        วันจอง:
                     </td>
                     
                     <td>
@@ -103,7 +104,7 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 
                  <tr class="item">
                     <td>
-                        Appointment Date
+                        วันเดือนปีที่จอง:
                     </td>
                     
                     <td>
@@ -113,25 +114,41 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 
                  <tr class="item">
                     <td>
-                        Appointment Time
+                        เวลาที่จอง:
                     </td>
                     
                     <td>
-                        <?php echo $userRow['startTime'];?> untill <?php echo $userRow['endTime'];?>
+                        <?php echo $userRow['startTime'];?> - <?php echo $userRow['endTime'];?>
                     </td>
                 </tr>
+                <tr class="item">
+                    <td>
+                        ประเภทันตกรรม:
+                    </td>
+                    
+                    <td>
+                        <?php echo $userRow['service'];?>
+                    </td>
 
                  <tr class="item">
                     <td>
-                        Patient Symptom
+                        ประเภทรับบริการ:
                     </td>
-                    
+                
                     <td>
                         <?php echo $userRow['appSymptom'];?> 
                     </td>
                 </tr>
-                
-                
+                <tr class="item">
+                    <td>
+                        <font color="red" size="3"><strong>หมายเหตุ</strong></font><br>
+                        <font color="red" size="2"><strong>*กรุณามาตามวันและเวลาที่ท่านทำการจอง</strong></font><br>
+                        <font color="red" size="2"><strong>*กรุณาแสดงใบยืนยันการจองต่อเจ้าหน้าที</strong></font>
+                    </td>
+                </tr>
+
+</tr>
+
                 
             </table>
         </div>

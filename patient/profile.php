@@ -15,44 +15,26 @@ if (isset($_POST['submit'])) {
 //variables
 $patientFirstName = $_POST['patientFirstName'];
 $patientLastName = $_POST['patientLastName'];
-$patientMaritialStatus = $_POST['patientMaritialStatus'];
 $patientDOB = $_POST['patientDOB'];
-$patientGender = $_POST['patientGender'];
-$patientAddress = $_POST['patientAddress'];
+$patient_pre = $_POST['patient_pre'];
+$Homenumber = $_POST['Homenumber'];
+$moo = $_POST['moo'];
+$districts = $_POST['districts'];
+
+$amphures = $_POST['amphures'];
+$provinces = $_POST['provinces'];
+$zipcode = $_POST['zipcode'];
+
+
 $patientPhone = $_POST['patientPhone'];
 $patientEmail = $_POST['patientEmail'];
-$patientId = $_POST['patientId'];
 // mysqli_query("UPDATE blogEntry SET content = $udcontent, title = $udtitle WHERE id = $id");
-$res=mysqli_query($con,"UPDATE patient SET patientFirstName='$patientFirstName', patientLastName='$patientLastName', patientMaritialStatus='$patientMaritialStatus', patientDOB='$patientDOB', patientGender='$patientGender', patientAddress='$patientAddress', patientPhone=$patientPhone, patientEmail='$patientEmail' WHERE icPatient=".$_SESSION['patientSession']);
+$res=mysqli_query($con,"UPDATE patient SET patient_pre='$patient_pre', patientFirstName='$patientFirstName', patientLastName='$patientLastName',  patientDOB='$patientDOB',  Homenumber='$Homenumber',  moo='$moo',  districts='$districts',  amphures='$amphures',  provinces='$provinces',  zipcode='$zipcode',  Homenumber='$Homenumber', patientPhone='$patientPhone', patientEmail='$patientEmail' WHERE icPatient=".$_SESSION['patientSession']);
 // $userRow=mysqli_fetch_array($res);
 header( 'Location: profile.php' ) ;
 }
 ?>
-<?php
-$male="";
-$female="";
-if ($userRow['patientGender']=='male') {
-$male = "checked";
-}elseif ($userRow['patientGender']=='female') {
-$female = "checked";
-}
-$single="";
-$married="";
-$separated="";
-$divorced="";
-$widowed="";
-if ($userRow['patientMaritialStatus']=='single') {
-$single = "checked";
-}elseif ($userRow['patientMaritialStatus']=='married') {
-$married = "checked";
-}elseif ($userRow['patientMaritialStatus']=='separated') {
-$separated = "checked";
-}elseif ($userRow['patientMaritialStatus']=='divorced') {
-$divorced = "checked";
-}elseif ($userRow['patientMaritialStatus']=='widowed') {
-$widowed = "checked";
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -60,7 +42,8 @@ $widowed = "checked";
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Patient Dashboard</title>
+		<title>คลินิกทันตกรรมทับปุด</title>
+		<link rel="icon" href="assets/img/F1.png" type="image/png">
 		<!-- Bootstrap -->
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="assets/css/default/style.css" rel="stylesheet">
@@ -87,15 +70,16 @@ $widowed = "checked";
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="patient.php"><img alt="Brand" src="assets/img/logo.png" height="40px"></a>
+					<a class="navbar-brand" href="patient.php"><img alt="Brand" src="assets/img/logo1.png" height="40px"></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<ul class="nav navbar-nav">
-							<li><a href="patient.php">Home</a></li>
+							<li><a href="patient.php">หน้าหลัก</a></li>
 							<!-- <li><a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>" >Profile</a></li> -->
-							<li><a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">Appointment</a></li>
+							<li><a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">รายการจองของคุณ</a></li>
+							
 						</ul>
 					</ul>
 					
@@ -104,14 +88,14 @@ $widowed = "checked";
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?><b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="fa fa-fw fa-user"></i> Profile</a>
+									<a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="fa fa-fw fa-user"></i>ประวัติส่วนตัว</a>
 								</li>
 								<li>
-									<a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="glyphicon glyphicon-file"></i> Appointment</a>
+									<a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="glyphicon glyphicon-file"></i> รายการจองของคุณ</a>
 								</li>
 								<li class="divider"></li>
 								<li>
-									<a href="patientlogout.php?logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+									<a href="patientlogout.php?logout"><i class="fa fa-fw fa-power-off"></i> ออกจากระบบ</a>
 								</li>
 							</ul>
 						</li>
@@ -130,22 +114,22 @@ $widowed = "checked";
 						<div class="col-md-3 col-sm-3">
 							
 							<div class="user-wrapper">
-								<img src="assets/img/1.jpg" class="img-responsive" />
+								<img src="assets/img/ima1.png" class="img-responsive" />
 								<div class="description">
 									<h4><?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?></h4>
-									<h5> <strong> Website Designer </strong></h5>
+									
 									<p>
-										Pellentesque elementum dapibus convallis.
+										ให้เราดูแลรอยยิ้มของคุณ เราจะดูแลด้วยใจ กรุณากรอกข้อมูลเพิ่มเติมให้กับเรา 
 									</p>
 									<hr />
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Update Profile</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">แก้ไขข้อมูลส่วนตัว</button>
 								</div>
 							</div>
 						</div>
 						
 						<div class="col-md-9 col-sm-9  user-wrapper">
 							<div class="description">
-								<h3> <?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?> </h3>
+								<h3><?php echo $userRow['patient_pre']; ?> <?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?> </h3>
 								<hr />
 								
 								<div class="panel panel-default">
@@ -157,31 +141,25 @@ $widowed = "checked";
 												
 												
 												<tr>
-													<td>PatientMaritialStatus</td>
-													<td><?php echo $userRow['patientMaritialStatus']; ?></td>
+													<td>เลขบัตรประชาชน</td>
+													<td><?php echo $userRow['icPatient']; ?></td>
 												</tr>
 												<tr>
-													<td>PatientDOB</td>
+													<td>วันเดือนปีเกิด:</td>
 													<td><?php echo $userRow['patientDOB']; ?></td>
 												</tr>
+												
 												<tr>
-													<td>PatientGender</td>
-													<td><?php echo $userRow['patientGender']; ?></td>
+													<td>ที่อยู่:</td> 
+													<td><?php echo $userRow['Homenumber']." หมู่". $userRow['moo']." ต.". $userRow['districts']." อ.". $userRow['amphures']." จ.". $userRow['provinces']." ". $userRow['zipcode']; ?> </td>
 												</tr>
 												<tr>
-													<td>PatientAddress</td>
-													<td><?php echo $userRow['patientAddress']; ?>
-													</td>
+													<td>เบอร์โทรศัพท์:</td>
+													<td><?php echo $userRow['patientPhone']; ?>	</td>
 												</tr>
 												<tr>
-													<td>PatientPhone</td>
-													<td><?php echo $userRow['patientPhone']; ?>
-													</td>
-												</tr>
-												<tr>
-													<td>PatientEmail</td>
-													<td><?php echo $userRow['patientEmail']; ?>
-													</td>
+													<td>อีเมล์:</td>
+													<td><?php echo $userRow['patientEmail']; ?>	</td>
 												</tr>
 											</tbody>
 										</table>
@@ -198,13 +176,13 @@ $widowed = "checked";
 						
 						<!-- Large modal -->
 						
-						<!-- Modal -->
+						<!-- Modal --> 
 						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+										<h4 class="modal-title" id="myModalLabel">กรอกฟอร์มบันทึกข้อมูลส่วนตัว</h4>
 									</div>
 									<div class="modal-body">
 										<!-- form start -->
@@ -212,86 +190,71 @@ $widowed = "checked";
 											<table class="table table-user-information">
 												<tbody>
 													<tr>
-														<td>IC Number:</td>
+														<td>เลขบัตรประชาชน:</td>
 														<td><?php echo $userRow['icPatient']; ?></td>
-													</tr>
-													<tr>
-														<td>First Name:</td>
-														<td><input type="text" class="form-control" name="patientFirstName" value="<?php echo $userRow['patientFirstName']; ?>"  /></td>
-													</tr>
-													<tr>
-														<td>Last Name</td>
-														<td><input type="text" class="form-control" name="patientLastName" value="<?php echo $userRow['patientLastName']; ?>"  /></td>
-													</tr>
-													
-													<!-- radio button -->
-													<tr>
-														<td>Maritial Status:</td>
-														<td>
-															<div class="radio">
-																<label><input type="radio" name="patientMaritialStatus" value="single" <?php echo $single; ?>>Single</label>
-															</div>
-															<div class="radio">
-																<label><input type="radio" name="patientMaritialStatus" value="married" <?php echo $married; ?>>Married</label>
-															</div>
-															<div class="radio">
-																<label><input type="radio" name="patientMaritialStatus" value="separated" <?php echo $separated; ?>>Separated</label>
-															</div>
-															<div class="radio">
-																<label><input type="radio" name="patientMaritialStatus" value="divorced" <?php echo $divorced; ?>>Divorced</label>
-															</div>
-															<div class="radio">
-																<label><input type="radio" name="patientMaritialStatus" value="widowed" <?php echo $widowed; ?>>Widowed</label>
-															</div>
-														</td>
-													</tr>
-													<!-- radio button end -->
-													<tr>
-														<td>DOB</td>
-														<!-- <td><input type="text" class="form-control" name="patientDOB" value="<?php echo $userRow['patientDOB']; ?>"  /></td> -->
-														<td>
-															<div class="form-group ">
-																
-																<div class="input-group">
-																	<div class="input-group-addon">
-																		<i class="fa fa-calendar">
-																		</i>
-																	</div>
-																	<input class="form-control" id="patientDOB" name="patientDOB" placeholder="MM/DD/YYYY" type="text" value="<?php echo $userRow['patientDOB']; ?>"/>
-																</div>
-															</div>
-														</td>
 														
 													</tr>
-													<!-- radio button -->
 													<tr>
-														<td>Gender</td>
+													<tr>
+														<td>คำนำหน้าชื่อ:</td>
 														<td>
-															<div class="radio">
-																<label><input type="radio" name="patientGender" value="male" <?php echo $male; ?>>Male</label>
-															</div>
-															<div class="radio">
-																<label><input type="radio" name="patientGender" value="female" <?php echo $female; ?>>Female</label>
-															</div>
+															<select class="form-control" name="patient_pre">
+																<option value="นาย" <?php echo ($userRow['patient_pre'] == 'นาย') ? 'selected' : ''; ?>>นาย</option>
+																<option value="นาง" <?php echo ($userRow['patient_pre'] == 'นาง') ? 'selected' : ''; ?>>นาง</option>
+																<option value="นางสาว" <?php echo ($userRow['patient_pre'] == 'นางสาว') ? 'selected' : ''; ?>>นางสาว</option>
+															</select>
 														</td>
 													</tr>
-													<!-- radio button end -->
+
+														<td>ชื่อ:</td>
+														<td><input type="text" class="form-control" name="patientFirstName" value="<?php echo $userRow['patientFirstName']; ?>"  /></td>
+													</tr>
 													
 													<tr>
-														<td>Phone number</td>
+														<td>นามสกุล</td>
+														<td><input type="text" class="form-control" name="patientLastName" value="<?php echo $userRow['patientLastName']; ?>"  /></td>
+													</tr>
+													<tr>
+														<td>วันเดือนปีเกิด</td>
+														<td><input type="date" class="form-control" name="patientDOB" value="<?php echo $userRow['patientDOB']; ?>"  /></td>
+																												
+													</tr>
+													<tr>
+														<td>เบอร์โทรศัพท์</td>
 														<td><input type="text" class="form-control" name="patientPhone" value="<?php echo $userRow['patientPhone']; ?>"  /></td>
 													</tr>
 													<tr>
-														<td>Email</td>
+														<td>อีเมล์</td>
 														<td><input type="text" class="form-control" name="patientEmail" value="<?php echo $userRow['patientEmail']; ?>"  /></td>
 													</tr>
 													<tr>
-														<td>Address</td>
-														<td><textarea class="form-control" name="patientAddress"  ><?php echo $userRow['patientAddress']; ?></textarea></td>
+														<td>บ้านเลขที่</td>
+														<td><input type="text" class="form-control" name="Homenumber" value="<?php echo $userRow['Homenumber']; ?>" /></td>
+													</tr>
+													<tr>
+														<td>หมู่</td>
+														<td><input type="text" class="form-control" name="moo" value="<?php echo $userRow['moo']; ?>" /></td>
+													</tr>
+													<tr>
+														<td>ตำบล</td>
+														<td><textarea class="form-control" name="districts" ><?php echo $userRow['districts']; ?></textarea></td>
+													</tr>
+													<tr>
+														<td>อำเภอ</td>
+														<td><textarea class="form-control" name="amphures" ><?php echo $userRow['amphures']; ?></textarea></td>
+													</tr>
+													<tr>
+														<td>จังหวัด</td>
+														<td><textarea class="form-control" name="provinces" ><?php echo $userRow['provinces']; ?></textarea></td>
+													</tr>
+
+													<tr>
+														<td>รหัสไปรษณีย์</td>
+														<td><textarea class="form-control" name="zipcode"  ><?php echo $userRow['zipcode']; ?></textarea></td>
 													</tr>
 													<tr>
 														<td>
-															<input type="submit" name="submit" class="btn btn-info" value="Update Info"></td>
+															<input type="submit" name="submit" class="btn btn-info" value="บันทึก"></td>
 														</tr>
 													</tbody>
 													

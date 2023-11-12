@@ -20,13 +20,15 @@ $res=mysqli_query($con, "SELECT a.*, b.*,c.* FROM patient a
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Make Appoinment</title>
+		<title>คลินิกทันตกรรมทับปุด</title>
+		<link rel="icon" href="assets/img/F1.png" type="image/png">
 		<!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
 		<link href="assets/css/material.css" rel="stylesheet">
 		
 		<link href="assets/css/default/style.css" rel="stylesheet">
 		<link href="assets/css/default/blocks.css" rcel="stylesheet">
 		<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" />
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 	</head>
 	<body>
@@ -41,15 +43,15 @@ $res=mysqli_query($con, "SELECT a.*, b.*,c.* FROM patient a
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="patient.php"><img alt="Brand" src="assets/img/logo.png" height="40px"></a>
+					<a class="navbar-brand" href="patient.php"><img alt="Brand" src="assets/img/logo1.png" height="40px"></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<ul class="nav navbar-nav">
-							<li><a href="patient.php">Home</a></li>
+							<li><a href="patient.php">หน้าหลัก</a></li>
 							<!-- <li><a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>" >Profile</a></li> -->
-							<li><a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">Appointment</a></li>
+							<li><a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">รายการจองของคุณ</a></li>
 						</ul>
 					</ul>
 					
@@ -58,14 +60,14 @@ $res=mysqli_query($con, "SELECT a.*, b.*,c.* FROM patient a
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?><b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="fa fa-fw fa-user"></i> Profile</a>
+									<a href="profile.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="fa fa-fw fa-user"></i> ประวัติส่วนตัว</a>
 								</li>
 								<li>
-									<a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="glyphicon glyphicon-file"></i> Appointment</a>
+									<a href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>"><i class="glyphicon glyphicon-file"></i>รายการจองของคุณ</a>
 								</li>
 								<li class="divider"></li>
 								<li>
-									<a href="patientlogout.php?logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+									<a href="patientlogout.php?logout"><i class="fa fa-fw fa-power-off"></i>ออกจากระบบ</a>
 								</li>
 							</ul>
 						</li>
@@ -81,22 +83,24 @@ $res=mysqli_query($con, "SELECT a.*, b.*,c.* FROM patient a
 echo "<div class='container'>";
 echo "<div class='row'>";
 echo "<div class='page-header'>";
-echo "<h1>Your appointment list. </h1>";
+echo "<h1>รายการจองของคุณ </h1>";
 echo "</div>";
 echo "<div class='panel panel-primary'>";
-echo "<div class='panel-heading'>List of Appointment</div>";
+echo "<div class='panel-heading'>สรุปรายการจองทั้งหมด</div>";
 echo "<div class='panel-body'>";
 echo "<table class='table table-hover'>";
 echo "<thead>";
 echo "<tr>";
 echo "<th>App Id</th>";
-echo "<th>patientIc </th>";
-echo "<th>patientLastName </th>";
-echo "<th>scheduleDay </th>";
-echo "<th>scheduleDate </th>";
-echo "<th>startTime </th>";
-echo "<th>endTime </th>";
-echo "<th>Print </th>";
+
+echo "<th>ทันตกรรมด้าน </th>";
+echo "<th>ประเภททีรับบริการ </th>";
+echo "<th>ชื่อ-สกุล </th>";
+
+echo "<th>วันเดือนปีที่จอง </th>";
+echo "<th>เวลา เริ่มต้น </th>";
+echo "<th>เวลา สิ้นสุด </th>";
+echo "<th>พิมพ์ใบจอง </th>";
 echo "</tr>";
 echo "</thead>";
 $res = mysqli_query($con, "SELECT a.*, b.*,c.*
@@ -116,13 +120,14 @@ while ($userRow = mysqli_fetch_array($res)) {
 echo "<tbody>";
 echo "<tr>";
 echo "<td>" . $userRow['appId'] . "</td>";
-echo "<td>" . $userRow['patientIc'] . "</td>";
-echo "<td>" . $userRow['patientLastName'] . "</td>";
-echo "<td>" . $userRow['scheduleDay'] . "</td>";
+echo "<td>" . $userRow['service'] . "</td>";
+echo "<td>" . $userRow['appSymptom'] . "</td>";
+echo "<td>" . $userRow['patientFirstName'] . " " . $userRow['patientLastName'] . "</td>";
 echo "<td>" . $userRow['scheduleDate'] . "</td>";
 echo "<td>" . $userRow['startTime'] . "</td>";
 echo "<td>" . $userRow['endTime'] . "</td>";
-echo "<td><a href='invoice.php?appid=".$userRow['appId']."' target='_blank'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></a> </td>";
+echo "<td style='text-align: center;'><a href='invoice.php?appid=".$userRow['appId']."' target='_blank'><i class='bx bxs-file-png' style='color:#fdc900; font-size: 24px;'></i></a></td>";
+
 }
 
 echo "</tr>";
@@ -137,5 +142,6 @@ echo "</table>";
 <!-- display appoinment end -->
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
 </html>

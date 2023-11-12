@@ -1,15 +1,15 @@
 <?php
 include_once '../assets/conn/dbconnect.php';
-// Get the variables.
+ //Get the variables.
 $id = $_POST['id'];
-// echo $appid;
+ echo $appid;
 
 $delete = mysqli_query($con,"DELETE FROM doctorschedule WHERE scheduleId=$id");
-// if(isset($delete)) {
-//    echo "YES";
-// } else {
-//    echo "NO";
-// }
+ if(isset($delete)) {
+    echo "YES";
+ } else {
+    echo "NO";
+ }
 
 
 

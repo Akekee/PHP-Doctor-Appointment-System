@@ -1124,7 +1124,7 @@ img {
   padding: 4px;
   line-height: 1.846;
   background-color: #ffffff;
-  border: 1px solid #dddddd;
+  border: 1px solid #363636;
   border-radius: 3px;
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -1176,10 +1176,10 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: inherit;
+  font-family: 'Roboto', 'noto-sans-thai';
   font-weight: 400;
   line-height: 1.1;
-  color: #444444;
+  color: rgb(16, 10, 67);
 }
 h1 small,
 h2 small,
@@ -1337,7 +1337,7 @@ a.text-primary:focus {
   color: #0c7cd5;
 }
 .text-success {
-  color: #4caf50;
+  color: #052706;
 }
 a.text-success:hover,
 a.text-success:focus {
@@ -1362,7 +1362,7 @@ a.text-warning:focus {
 }
 a.text-danger:hover,
 a.text-danger:focus {
-  color: #b9151b;
+  color: #33a5e7;
 }
 .bg-primary {
   color: #fff;
@@ -2826,7 +2826,7 @@ select[multiple].input-lg {
   background-color: #dff0d8;
 }
 .has-success .form-control-feedback {
-  color: #4caf50;
+  color: #b6d11b;
 }
 .has-warning .help-block,
 .has-warning .control-label,

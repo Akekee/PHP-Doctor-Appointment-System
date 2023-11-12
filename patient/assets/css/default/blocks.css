@@ -637,7 +637,7 @@ Version: 1.0
 /*----------------------------------------------------*/
 
 .promo-1 {
-	background: url("../../img/cover2.jpg") center top no-repeat;
+	background-color: #c1e1f8;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;

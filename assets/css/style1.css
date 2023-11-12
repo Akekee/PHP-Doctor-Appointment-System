@@ -520,7 +520,7 @@ body
     color: #2980B9 !important;
 }
 
-.deco-hover:hover
+.deco-hover:hover 
 {
     color: #C9D787 !important;
 }
@@ -909,7 +909,8 @@ h3, .h3
 
 h4, .h4
 {
-    font-size: 23px;
+    font-weight: normal;
+    font-size: 25px;
 }
 
 h5, .h5
@@ -925,7 +926,7 @@ h6, .h6
 p
 {
     /*font-family: "Open Sans", Helvetica, Arial, sans-serif;*/
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     margin: 15px 0;
     color: #515157;
@@ -1094,27 +1095,27 @@ p .btn
 
 .btn.btn-default
 {
-    background: #ecf0f1;
-    box-shadow: 0 2px #bdc3c7;
-    color: #999;
+    background: #5cdeff;
+    box-shadow: 0 2px #5ea4d3;
+    color: #b64848;
 }
 
 .btn.btn-default:hover
 {
-    background: #bdc3c7;
+    background: #0c79c2;
 }
 
 /* Button PRIMARY */
 
 .btn.btn-primary
 {
-    background: #1abc9c;
-    box-shadow: 0 2px #16a085;
+    background: #05a5e0;
+    box-shadow: 0 2px rgb(1, 28, 57) 102, 160);
 }
 
 .btn.btn-primary:hover
 {
-    background: #16a085;
+    background: #020677;
 }
 
 /* Button WARNING */
@@ -1175,7 +1176,7 @@ p .btn
 .btn.btn-info
 {
     background: #3498db;
-    box-shadow: 0 2px #2980b9;
+    box-shadow: 0 2px #00243d;
 }
 
 .btn.btn-info:hover

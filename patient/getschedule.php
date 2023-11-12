@@ -15,29 +15,31 @@ die("Error running $sql: " . mysqli_error());
     <body>
         <?php
         if (mysqli_num_rows($res)==0) {
-        echo "<div class='alert alert-danger' role='alert'>Doctor is not available at the moment. Please try again later.</div>";
+        echo "<div class='alert alert-danger' role='alert'>ไม่มีตารางการจองคิวสำหรับวันนี้ กรุณาเลือกวันที่อื่น!!</div>";
         
         } else {
         echo "   <table class='table table-hover'>";
             echo " <thead>";
                 echo " <tr>";
-                    echo " <th>App Id</th>";
-                    echo " <th>Day</th>";
-                    echo " <th>Date</th>";
-                    echo "  <th>Start Time</th>";
-                    echo "  <th>End Time</th>";
-                    echo " <th>Availability</th>";
-                    echo "  <th>Book Now!</th>";
-                echo " </tr>";
-            echo "  </thead>";
-            echo "  <tbody>";
+                    
+                   
+                    echo " <th>วันเดือนปี</th>";
+                    echo "  <th>เวลา เริ่ม</th>";
+                    echo "  <th>เวลา สิ้นสุด</th>";
+                    echo " <th>ประเภททันตกรรม</th>";
+                    echo " <th>สถานะ</th>";
+                    echo "  <th>จองเลย!!</th>";
+                    echo " </tr>";
+                    echo "  </thead>";
+                    echo "  <tbody>";
                 while($row = mysqli_fetch_array($res)) {
                 ?>
                 <tr>
                     <?php
                     // $avail=null;
                     // $btnclick="";
-                    if ($row['bookAvail']!='available') {
+                    
+                    if ($row['bookAvail']!='ว่าง') {
                     $avail="danger";
                     $btnstate="disabled";
                     $btnclick="danger";
@@ -46,22 +48,22 @@ die("Error running $sql: " . mysqli_error());
                     $btnstate="";
                     $btnclick="primary";
                     }
-
+                    
                    
                     // if ($rowapp['bookAvail']!="available") {
                     // $btnstate="disabled";
                     // } else {
                     // $btnstate="";
                     // }
-                    echo "<td>" . $row['scheduleId'] . "</td>";
-                    echo "<td>" . $row['scheduleDay'] . "</td>";
+                   
                     echo "<td>" . $row['scheduleDate'] . "</td>";
                     echo "<td>" . $row['startTime'] . "</td>";
                     echo "<td>" . $row['endTime'] . "</td>";
+                    echo "<td>" . $row['service'] . "</td>";
                     echo "<td> <span class='label label-".$avail."'>". $row['bookAvail'] ."</span></td>";
-                    echo "<td><a href='appointment.php?&appid=" . $row['scheduleId'] . "&scheduleDate=".$q."' class='btn btn-".$btnclick." btn-xs' role='button' ".$btnstate.">Book Now</a></td>";
+                    echo "<td><a href='appointment.php?&appid=" . $row['scheduleId'] . "&scheduleDate=".$q."' class='btn btn-".$btnclick." btn-xs' role='button' ".$btnstate.">จองเลย</a></td>";
                     // echo "<td><a href='appointment.php?&appid=" . $row['scheduleId'] . "&scheduleDate=".$q."'>Book</a></td>";
-                    // <td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#exampleModal'>Book Now</button></td>";
+                    // <td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#exampleModal'>จองเลย</button></td>";
                     //triggered when modal is about to be shown
                     ?>
                     

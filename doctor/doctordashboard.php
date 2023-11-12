@@ -21,7 +21,8 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Welcome Dr <?php echo $userRow['doctorFirstName'];?> <?php echo $userRow['doctorLastName'];?></title>
+        <title>ยินดีต้อนรับ <?php echo $userRow['doctorFirstName'];?> </title>
+        <link rel="icon" href="assets/img/F1.png" type="image/png">
         <!-- Bootstrap Core CSS -->
         <!-- <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
         <link href="assets/css/material.css" rel="stylesheet">
@@ -33,33 +34,33 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
     </head>
     <body>
         <div id="wrapper">
-
+        
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">ไม่ต้องสลับช่องทาง</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="doctordashboard.php">Welcome Dr <?php echo $userRow['doctorFirstName'];?> <?php echo $userRow['doctorLastName'];?></a>
+                    <a class="navbar-brand" href="doctordashboard.php">สวัสดีคุณ <?php echo $userRow['doctorFirstName'];?> </a>
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
                     
                     
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['doctorFirstName']; ?> <?php echo $userRow['doctorLastName']; ?><b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['doctorFirstName']; ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="doctorprofile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+                                <a href="doctorprofile.php"><i class="fa fa-fw fa-user"></i>ข้อมูลคลินิก</a>
                             </li>
                            
                             <li class="divider"></li>
                             <li>
-                                <a href="logout.php?logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                <a href="logout.php?logout"><i class="fa fa-fw fa-power-off"></i> ออกจากระบบ</a>
                             </li>
                         </ul>
                     </li>
@@ -68,13 +69,19 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li class="active">
-                            <a href="doctordashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                            <a href="doctordashboard.php"><i class="fa fa-fw fa-dashboard"></i>การติดตามสถานะการจอง</a>
                         </li>
                         <li>
-                            <a href="addschedule.php"><i class="fa fa-fw fa-table"></i> Doctor Schedule</a>
+                            <a href="addschedule.php"><i class="fa fa-fw fa-table"></i>การจัดการข้อมูลการจอง</a>
                         </li>
                         <li>
-                            <a href="patientlist.php"><i class="fa fa-fw fa-edit"></i> Patient List</a>
+                            <a href="patientlist.php"><i class="fa fa-fw fa-edit"></i>การจัดการข้อมูลลูกค้า</a>
+                        </li>
+                        <li>
+                            <a href="add_doctor.php"><i class="fa fa-fw fa-edit"></i>การจัดการข้อมูลทันตแพทย์</a>
+                        </li>
+                        <li>
+                            <a href="board.php"><i class="fa fa-fw fa-edit"></i>สรุปรายการต่างๆ</a>
                         </li>
                     </ul>
                 </div>
@@ -89,11 +96,11 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                     <div class="row">
                         <div class="col-lg-12">
                             <h2 class="page-header">
-                            Dashboard
+                            การติดตามสถานะการจอง
                             </h2>
                             <ol class="breadcrumb">
                                 <li class="active">
-                                    <i class="fa fa-file"></i> Blank Page
+                                    <i class="fa fa-file"></i> ผลการจอง
                                 </li>
                             </ol>
                         </div>
@@ -104,9 +111,9 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                     <div class="panel panel-primary filterable">
                         <!-- Default panel contents -->
                        <div class="panel-heading">
-                        <h3 class="panel-title">Appointment List</h3>
+                        <h3 class="panel-title"> การติดตามสถานะการจอง</h3>
                         <div class="pull-right">
-                            <button class="btn btn-default btn-xs btn-filter"><span class="fa fa-filter"></span> Filter</button>
+                            <button class="btn btn-default btn-xs btn-filter"><span class="fa fa-filter"></span>ค้นหา</button>
                         </div>
                         </div>
                         <div class="panel-body">
@@ -114,17 +121,16 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr class="filters">
-                                    <th><input type="text" class="form-control" placeholder="patient Ic" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Contact No." disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Email" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Day" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Date" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Start" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="End" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Status" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Complete" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="Delete" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="บัตรประชาชน" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="ชื่อ-สกุล" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="เบอร์โทรศัพท์" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="ทันตกรรมด้าน" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="วันที่จอง" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="เวลาเริ่ม" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="เวลาสิ้นสุด" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="สถานะ" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="ยืนยัน" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="ลบ" disabled></th>
                                 </tr>
                             </thead>
                             
@@ -142,7 +148,7 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                                 }
                             while ($appointment=mysqli_fetch_array($res)) {
                                 
-                                if ($appointment['status']=='process') {
+                                if ($appointment['status']=='รอยืนยัน') {
                                     $status="danger";
                                     $icon='remove';
                                     $checked='';
@@ -153,21 +159,12 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                                     $checked = 'disabled';
                                 }
 
-                                
-                              
-                                
-                             
-                                
-
-                                
-
                                 echo "<tbody>";
                                 echo "<tr class='$status'>";
                                     echo "<td>" . $appointment['patientIc'] . "</td>";
-                                    echo "<td>" . $appointment['patientLastName'] . "</td>";
+                                    echo "<td>" . $appointment['patientFirstName'] . " " . $appointment['patientLastName'] . "</td>";
                                     echo "<td>" . $appointment['patientPhone'] . "</td>";
-                                    echo "<td>" . $appointment['patientEmail'] . "</td>";
-                                    echo "<td>" . $appointment['scheduleDay'] . "</td>";
+                                    echo "<td>" . $appointment['service'] . "</td>";
                                     echo "<td>" . $appointment['scheduleDate'] . "</td>";
                                     echo "<td>" . $appointment['startTime'] . "</td>";
                                     echo "<td>" . $appointment['endTime'] . "</td>";
@@ -176,14 +173,14 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                                     echo "<td class='text-center'><input type='checkbox' name='enable' id='enable' value='".$appointment['appId']."' onclick='chkit(".$appointment['appId'].",this.checked);' ".$checked."></td>";
                                     echo "<td class='text-center'><a href='#' id='".$appointment['appId']."' class='delete'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
                             </td>";
-                               
+                            
                             } 
                                 echo "</tr>";
                            echo "</tbody>";
                        echo "</table>";
                        echo "<div class='panel panel-default'>";
                        echo "<div class='col-md-offset-3 pull-right'>";
-                       echo "<button class='btn btn-primary' type='submit' value='Submit' name='submit'>Update</button>";
+                       echo "<button class='btn btn-primary' type='submit' value='Submit' name='submit'>อัปเดต</button>";
                         echo "</div>";
                         echo "</div>";
                         ?>
@@ -205,8 +202,6 @@ function chkit(uid, chk) {
 }
 </script>
 
-
- 
                 </div>
                 <!-- /.container-fluid -->
             </div>
@@ -214,17 +209,15 @@ function chkit(uid, chk) {
         </div>
         <!-- /#wrapper -->
 
-
-       
         <!-- jQuery -->
-        <script src="../patient/assets/js/jquery.js"></script>
+        <script src="../patient/assets/js/jquery.js"></script> 
         <script type="text/javascript">
 $(function() {
 $(".delete").click(function(){
 var element = $(this);
 var appid = element.attr("id");
 var info = 'id=' + appid;
-if(confirm("Are you sure you want to delete this?"))
+if(confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสิ่งนี้?"))
 {
  $.ajax({
    type: "POST",

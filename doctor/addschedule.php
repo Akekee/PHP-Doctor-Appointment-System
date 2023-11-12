@@ -14,14 +14,16 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 
 if (isset($_POST['submit'])) {
 $date = mysqli_real_escape_string($con,$_POST['date']);
+$service = mysqli_real_escape_string($con,$_POST['service']);
 $scheduleday  = mysqli_real_escape_string($con,$_POST['scheduleday']);
 $starttime     = mysqli_real_escape_string($con,$_POST['starttime']);
 $endtime     = mysqli_real_escape_string($con,$_POST['endtime']);
 $bookavail         = mysqli_real_escape_string($con,$_POST['bookavail']);
 
 //INSERT
-$query = " INSERT INTO doctorschedule (  scheduleDate, scheduleDay, startTime, endTime,  bookAvail)
-VALUES ( '$date', '$scheduleday', '$starttime', '$endtime', '$bookavail' ) ";
+$query = "INSERT INTO doctorschedule (service, scheduleDate, scheduleDay, startTime, endTime, bookAvail)
+          VALUES ('$service', '$date', '$scheduleday', '$starttime', '$endtime', '$bookavail')";
+
 
 $result = mysqli_query($con, $query);
 // echo $result;
@@ -29,7 +31,7 @@ if( $result )
 {
 ?>
 <script type="text/javascript">
-alert('Schedule added successfully.');
+alert('เพิ่มกำหนดการเรียบร้อยแล้ว');
 </script>
 <?php
 }
@@ -37,7 +39,7 @@ else
 {
 ?>
 <script type="text/javascript">
-alert('Added fail. Please try again.');
+alert('เเกิดข้อผิดพลาด กรุณาลองอีกครั้ง.');
 </script>
 <?php
 }
@@ -56,7 +58,9 @@ alert('Added fail. Please try again.');
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Welcome Dr <?php echo $userRow['doctorFirstName'];?> <?php echo $userRow['doctorLastName'];?></title>
+        <title>ยินดีต้อนรับ <?php echo $userRow['doctorFirstName'];?> </title>
+        <link rel="icon" href="img/F1.png" type="image/png">
+
         <!-- Bootstrap Core CSS -->
         <!-- <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
         <link href="assets/css/material.css" rel="stylesheet">
@@ -70,6 +74,7 @@ alert('Added fail. Please try again.');
 
         <!--Font Awesome (added because you use icons in your prepend/append)-->
         <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
         <!-- Inline CSS based on choices in "Settings" tab -->
         <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
@@ -84,27 +89,27 @@ alert('Added fail. Please try again.');
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">ไม่ต้องสลับช่องทาง</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="doctordashboard.php">Welcome Dr <?php echo $userRow['doctorFirstName'];?> <?php echo $userRow['doctorLastName'];?></a>
+                    <a class="navbar-brand" href="doctordashboard.php">สวัสดีคุณ <?php echo $userRow['doctorFirstName'];?></a>
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
                     
                     
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['doctorFirstName']; ?> <?php echo $userRow['doctorLastName']; ?><b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['doctorFirstName']; ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="doctorprofile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+                                <a href="doctorprofile.php"><i class="fa fa-fw fa-user"></i>ข้อมูลคลินิก</a>
                             </li>
                             
                             <li class="divider"></li>
                             <li>
-                                <a href="logout.php?logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                <a href="logout.php?logout"><i class="fa fa-fw fa-power-off"></i> ออกจากระบบ</a>
                             </li>
                         </ul>
                     </li>
@@ -113,13 +118,19 @@ alert('Added fail. Please try again.');
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a href="doctordashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                            <a href="doctordashboard.php"><i class="fa fa-fw fa-dashboard"></i>การติดตามสถานะการจอง</a>
                         </li>
                         <li class="active">
-                            <a href="addschedule.php"><i class="fa fa-fw fa-table"></i> Doctor Schedule</a>
+                            <a href="addschedule.php"><i class="fa fa-fw fa-table"></i>การจัดการข้อมูลการจอง</a>
                         </li>
                         <li>
-                            <a href="patientlist.php"><i class="fa fa-fw fa-edit"></i> Patient List</a>
+                            <a href="patientlist.php"><i class="fa fa-fw fa-edit"></i>การจัดการข้อมูลลูกค้า</a>
+                        </li>
+                        <li>
+                            <a href="add_doctor.php"><i class="fa fa-fw fa-edit"></i>การจัดการข้อมูลทันตแพทย์</a>
+                        </li>
+                        <li>
+                            <a href="board.php"><i class="fa fa-fw fa-edit"></i>สรุปรายการต่างๆ</a>
                         </li>
                     </ul>
                 </div>
@@ -134,7 +145,7 @@ alert('Added fail. Please try again.');
                     <div class="row">
                         <div class="col-lg-12">
                             <h2 class="page-header">
-                            Doctor Schedule
+                           การจัดการข้อมูลการจอง
                             </h2>
                             <ol class="breadcrumb">
                                 <li class="active">
@@ -150,7 +161,7 @@ alert('Added fail. Please try again.');
 
                         <!-- panel heading starat -->
                         <div class="panel-heading">
-                            <h3 class="panel-title">Add Schedule</h3>
+                            <h3 class="panel-title">การจัดการข้อมูลการจอง</h3>
                         </div>
                         <!-- panel heading end -->
 
@@ -161,64 +172,78 @@ alert('Added fail. Please try again.');
                               <div class="row">
                                <div class="col-md-12 col-sm-12 col-xs-12">
                                 <form class="form-horizontal" method="post">
-                                 <div class="form-group form-group-lg">
-                                  <label class="control-label col-sm-2 requiredField" for="date">
-                                   Date
-                                   <span class="asteriskField">
-                                    *
-                                   </span>
-                                  </label>
-                                  <div class="col-sm-10">
-                                   <div class="input-group">
+                                <div class="form-group form-group-lg">
+                                <div class="form-group form-group-lg">
+                                <label class="control-label col-sm-2 requiredField" for="date">
+                                    วันที่
+                                    <span class="asteriskField">*</span>
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
                                     <div class="input-group-addon">
-                                     <i class="fa fa-calendar">
-                                     </i>
+                                        <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input class="form-control" id="date" name="date" type="text" required/>
-                                   </div>
-                                  </div>
-                                 </div>
+                                    <?php $date = date('Y-m-d');  ?>
+                                    <input class="form-control" id="date" name="date" type="date" min="<?= $date; ?>" required/>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <!-- เพิ่มช่องกรอกสำหรับประเภทการให้บริการ -->
+                                <div class="form-group form-group-lg">
+                                <label class="control-label col-sm-2 requiredField" for="service">
+                                    ทันตกรรมให้บริการ
+                                    <span class="asteriskField">*</span>
+                                </label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="service" name="service" required>
+                                    <option value="">-- เลือกประเภททันตกรรมด้าน --</option>
+                                    <option value="ทันตกรรมทั่วไป">ทันตกรรมทั่วไป</option>
+                                    <option value="ทันตกรรมความงาม">ทันตกรรมความงาม</option>
+                                    </select>
+                                </div>
+                                </div>
                                  <div class="form-group form-group-lg">
                                   <label class="control-label col-sm-2 requiredField" for="scheduleday">
-                                   Day
+                                   วัน
                                    <span class="asteriskField">
                                     *
                                    </span>
                                   </label>
                                   <div class="col-sm-10">
                                    <select class="select form-control" id="scheduleday" name="scheduleday" required>
-                                    <option value="Monday">
-                                     Monday
+                                    <option value="จันทร์">
+                                     จันทร์
                                     </option>
-                                    <option value="Tuesday">
-                                     Tuesday
+                                    <option value="อังคาร">
+                                     อังคาร
                                     </option>
-                                    <option value="Wednesday">
-                                     Wednesday
+                                    <option value="พุธ">
+                                     พุธ
                                     </option>
-                                    <option value="Thursday">
-                                     Thursday
+                                    <option value="พฤหัสบดี">
+                                     พฤหัสบดี
                                     </option>
-                                    <option value="Friday">
-                                     Friday
+                                    <option value="ศุกร์">
+                                     ศุกร์
                                     </option>
-                                    <option value="Saturday">
-                                     Saturday
+                                    <option value="เสาร์">
+                                     เสาร์
                                     </option>
-                                    <option value="Sunday">
-                                     Sunday
+                                    <option value="อาทิตย์">
+                                     อาทิตย์
                                     </option>
                                    </select>
                                   </div>
                                  </div>
                                  <div class="form-group form-group-lg">
                                   <label class="control-label col-sm-2 requiredField" for="starttime">
-                                   Start Time
+                                   เวลาเริ่ม
                                    <span class="asteriskField">
                                     *
                                    </span>
                                   </label>
-
+                                  
                                   <div class="col-sm-10">
                                    <div class="input-group clockpicker"  data-align="top" data-autoclose="true">
                                     <div class="input-group-addon">
@@ -231,7 +256,7 @@ alert('Added fail. Please try again.');
                                  </div>
                                  <div class="form-group form-group-lg">
                                   <label class="control-label col-sm-2 requiredField" for="endtime">
-                                   End Time
+                                   เวลาสิ้นสุด
                                    <span class="asteriskField">
                                     *
                                    </span>
@@ -248,18 +273,18 @@ alert('Added fail. Please try again.');
                                  </div>
                                  <div class="form-group form-group-lg">
                                   <label class="control-label col-sm-2 requiredField" for="bookavail">
-                                   Availabilty
+                                   สถานะการใช้งาน
                                    <span class="asteriskField">
                                     *
                                    </span>
                                   </label>
                                   <div class="col-sm-10">
                                    <select class="select form-control" id="bookavail" name="bookavail" required>
-                                    <option value="available">
-                                     available
-                                    </option>
-                                    <option value="notavail">
-                                     notavail
+                                    <option value="ว่าง">
+                                     เปิดรับ
+                                    </option> 
+                                    <option value="ไม่ว่าง">
+                                     ปิดรับ
                                     </option>
                                    </select>
                                   </div>
@@ -267,7 +292,7 @@ alert('Added fail. Please try again.');
                                  <div class="form-group">
                                   <div class="col-sm-10 col-sm-offset-2">
                                    <button class="btn btn-primary " name="submit" type="submit">
-                                    Submit
+                                    บันทึก
                                    </button>
                                   </div>
                                  </div>
@@ -287,9 +312,9 @@ alert('Added fail. Please try again.');
 
                         <!-- panel heading starat -->
                         <div class="panel-heading">
-                            <h3 class="panel-title">List of Patients</h3>
+                            <h3 class="panel-title">สรุปการจัดการข้อมูลการจอง</h3>
                             <div class="pull-right">
-                            <button class="btn btn-default btn-xs btn-filter"><span class="fa fa-filter"></span> Filter</button>
+                            <button class="btn btn-default btn-xs btn-filter"><span class="fa fa-filter"></span> ค้นหา</button>
                         </div>
                         </div>
                         <!-- panel heading end -->
@@ -300,16 +325,19 @@ alert('Added fail. Please try again.');
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr class="filters">
-                                    <th><input type="text" class="form-control" placeholder="scheduleId" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="scheduleDate" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="scheduleDay" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="startTime." disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="endTime" disabled></th>
-                                    <th><input type="text" class="form-control" placeholder="bookAvail" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="ลำดับ" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="ทันตกรรมด้าน" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="วันที่เปิดรับคิว" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="วันรับคิว" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="เวลาเริ่มต้น" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="เวลาสิ้นสุด" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="สถานะ" disabled></th>
+                                    <th><input type="text" class="form-control" placeholder="ลบข้อมูล" disabled></th>
                                 </tr>
                             </thead>
                             
                             <?php 
+                            $count=1;
                             $result=mysqli_query($con,"SELECT * FROM doctorschedule");
                             
 
@@ -319,23 +347,25 @@ alert('Added fail. Please try again.');
                               
                                 echo "<tbody>";
                                 echo "<tr>";
-                                    echo "<td>" . $doctorschedule['scheduleId'] . "</td>";
+                                    echo "<td>" .  $count . "</td>";
+                                    echo "<td>" . $doctorschedule['service'] . "</td>";
                                     echo "<td>" . $doctorschedule['scheduleDate'] . "</td>";
                                     echo "<td>" . $doctorschedule['scheduleDay'] . "</td>";
                                     echo "<td>" . $doctorschedule['startTime'] . "</td>";
                                     echo "<td>" . $doctorschedule['endTime'] . "</td>";
                                     echo "<td>" . $doctorschedule['bookAvail'] . "</td>";
                                     echo "<form method='POST'>";
-                                    echo "<td class='text-center'><a href='#' id='".$doctorschedule['scheduleId']."' class='delete'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
+                                    echo "<td class='text-center'><a href='#' id='".$doctorschedule['scheduleId']."' class='delete'><i class='bx bxs-trash'></i></a>
                             </td>";
-                               
+                            $count++;
+                            
                             } 
                                 echo "</tr>";
                            echo "</tbody>";
                        echo "</table>";
                        echo "<div class='panel panel-default'>";
                        echo "<div class='col-md-offset-3 pull-right'>";
-                       echo "<button class='btn btn-primary' type='submit' value='Submit' name='submit'>Update</button>";
+                       //echo "<button class='btn btn-primary' type='submit' value='Submit' name='submit'>Update</button>";
                         echo "</div>";
                         echo "</div>";
                         ?>
@@ -361,8 +391,9 @@ alert('Added fail. Please try again.');
         <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
-<script>
+<!-- <script>
     $(document).ready(function(){
         var date_input=$('input[name="date"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -371,9 +402,9 @@ alert('Added fail. Please try again.');
             container: container,
             todayHighlight: true,
             autoclose: true,
-        })
+        }) 
     })
-</script>
+</script> -->
 <script type="text/javascript">
     $('.clockpicker').clockpicker();
 </script>
@@ -383,7 +414,7 @@ $(".delete").click(function(){
 var element = $(this);
 var id = element.attr("id");
 var info = 'id=' + id;
-if(confirm("Are you sure you want to delete this?"))
+if(confirm("คุณแน่ใจหรือไม่ว่าต้องการลบสิ่งนี้"))
 {
  $.ajax({
    type: "POST",
@@ -415,7 +446,7 @@ return false;
                         $tbody.find('.no-result').remove();
                         $tbody.find('tr').show();
                     }
-                });
+                });Schedule added successfully.
 
                 $('.filterable .filters input').keyup(function(e){
                     /* Ignore tab key */
@@ -440,7 +471,7 @@ return false;
                     $filteredRows.hide();
                     /* Prepend no-result row if all rows are filtered */
                     if ($filteredRows.length === $rows.length) {
-                        $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="'+ $table.find('.filters th').length +'">No result found</td></tr>'));
+                        $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="'+ $table.find('.filters th').length +'">ไม่พบผลลัพธ์</td></tr>'));
                     }
                 });
             });
